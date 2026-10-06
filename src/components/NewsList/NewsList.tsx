@@ -3,13 +3,17 @@ import type { INewsItem } from "../NewsBanner/NewsBanner";
 import NewsItem from "../NewsItem/NewsItem";
 
 interface NewsListProps {
-    news: INewsItem[]
+ news: INewsItem[];
 }
 
 const NewsList = ({ news }: NewsListProps) => {
- return <ul className={styles.list}>
-    {news.map((item) => <NewsItem key={item.id} item={item}/>)}
- </ul>;
+ return (
+  <ul className={styles.list}>
+   {news.map((item) => (
+    <NewsItem key={item.id} item={item} />
+   ))}
+  </ul>
+ );
 };
 
 export default NewsList;
