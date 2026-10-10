@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styles from "./styles.module.css";
 
 interface ImageProps {
@@ -6,13 +7,28 @@ interface ImageProps {
 }
 
 const Image = ({ src, alt = "news" }: ImageProps) => {
+  const [hasError, setHasError] = useState(false);
+
+
+  if (!src || hasError) {
+    return (
+      <div className={styles.wrapper}>
+        <div className={styles.placeholder}>
+          <span>📷 Нет фото</span>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className={styles.wrapper}>
-      {src ? (
-        <img src={src} alt={alt} className={styles.image} loading="lazy" />
-      ) : (
-        <div className={styles.placeholder}>Нет изображения</div>
-      )}
+      <img
+        src={src}
+        alt={alt}
+        className={styles.image}
+        loading="lazy"
+        onError={() => setHasError(true)} // Переключаем стейт при битой картинке
+      />
     </div>
   );
 };
